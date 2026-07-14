@@ -1,7 +1,7 @@
 // ------ここからユーザー追記------
 
 /* --------------------------------
- * ユーザー設定の関数
+ * ユーザー設定関数
 -------------------------------- */
 
 // 現在のページのタイトルとURLをマークダウン記法でヤンク
@@ -17,6 +17,24 @@ function yankTitleAndUrlAsMarkdown() {
     api.Front.showPopup('copy markdownLinkText:'+ markdownLinkText);
 }
 api.mapkey('ymm', 'URLとタイトルをマークダウン記法でコピー', yankTitleAndUrlAsMarkdown);
+
+// ビジュアルモードで 'Y' を押したとき、選択を解除（終了）せずにヤンクする
+api.vmapkey('Y', 'Yank選択テキストを維持したままコピー', () => {
+    const selectedText = window.getSelection().toString();
+    if (selectedText) {
+        api.Clipboard.write(selectedText);
+    }
+    // <Esc> キーの入力をエミュレートして、Surfingkeysに選択を解除させる(動かない)
+    const escEvent = new KeyboardEvent('keydown', {
+        key: 'Escape',
+        code: 'Escape',
+        keyCode: 27,
+        which: 27,
+        bubbles: true,
+        cancelable: true
+    });
+    window.dispatchEvent(escEvent);
+});
 
 settings.historyMUorder = true;
 // タブの検索時にオムニバーを使用。最近使用した順に並べる
