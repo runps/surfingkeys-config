@@ -14,7 +14,7 @@ function yankTitleAndUrlAsMarkdown() {
 
     //Clipboard.write({type:'text', data:markdownLinkText});
     api.Clipboard.write(markdownLinkText);
-    api.Front.showPopup('copy markdownLinkText:'+ markdownLinkText);
+    //api.Front.showPopup('copy markdownLinkText:'+ markdownLinkText); // デバッグ用にPopUpを表示する。
 }
 api.mapkey('ymm', 'URLとタイトルをマークダウン記法でコピー', yankTitleAndUrlAsMarkdown);
 
